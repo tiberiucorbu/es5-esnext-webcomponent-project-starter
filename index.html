@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script>
+
+
+        // Internet Explorer 6-11
+        // var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        // if (isIE) {
+            var script = document.createElement('script');
+            script.setAttribute('src', './node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js');
+            document.head.appendChild(script);
+        // }
+    </script>
+</head>
+<body>
+<my-element></my-element>
+<script>
+    var script = document.createElement('script');
+    script.setAttribute('async', 'async');
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if (isIE) {
+
+        script.setAttribute('src', './dist/es5/bundle.js');
+
+    } else {
+        script.setAttribute('src', './dist/es-next/bundle.js');
+    }
+    document.body.appendChild(script);
+
+</script>
+</body>
+</html>

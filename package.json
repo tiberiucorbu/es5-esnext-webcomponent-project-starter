@@ -6,8 +6,10 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "webpack --mode=production",
-    "build": "npm run build:types && npm run build:js"
+    "build:ts": "tsc -p .",
+    "build:js": "webpack --mode=development",
+    "build:jses5": "gulp es5",
+    "build": "npm run build:js && npm run build:jses5"
   },
   "author": {
     "name": "Alexander T.",
@@ -17,18 +19,26 @@
   "types": "dist/types/index.d.ts",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
-    "@babel/preset-env": "7.3.1",
-    "@babel/preset-typescript": "7.1.0",
+    "@babel/core": "7.3.4",
+    "@babel/plugin-proposal-class-properties": "7.3.4",
+    "@babel/plugin-proposal-decorators": "7.3.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.4",
+    "@babel/preset-env": "7.3.4",
+    "@babel/preset-typescript": "7.3.3",
     "babel-loader": "8.0.5",
-    "fork-ts-checker-webpack-plugin": "0.5.2",
-    "typescript": "3.3.1",
-    "webpack": "4.29.0",
-    "webpack-cli": "3.2.1"
+    "fork-ts-checker-webpack-plugin": "1.0.0",
+    "gulp": "4.0.0",
+    "gulp-babel": "8.0.0",
+    "ts-loader": "5.3.3",
+    "typescript": "3.3.3333",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.3.0"
   },
   "resolutions": {
     "terser": "3.14.1"
+  },
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "2.2.7",
+    "lit-element": "^2.0.1"
   }
 }
