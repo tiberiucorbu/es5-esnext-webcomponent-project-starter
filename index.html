@@ -5,24 +5,33 @@
     <title>Title</title>
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script>
-
-
         // Internet Explorer 6-11
-        // var isIE = /*@cc_on!@*/false || !!document.documentMode;
-        // if (isIE) {
-            var script = document.createElement('script');
-            script.setAttribute('src', './node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js');
+        const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+        function loadScript(polyfillScript) {
+            const script = document.createElement('script');
+            script.setAttribute('src', polyfillScript);
             document.head.appendChild(script);
-        // }
+            return script;
+        }
+
+        if (isIE) {
+            const es5AddapterScript = './node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
+            const polyfillScript = './node_modules/@babel/polyfill/dist/polyfill.js';
+            loadScript(polyfillScript);
+            loadScript(es5AddapterScript);
+        }
     </script>
 </head>
 <body>
 <my-element></my-element>
+<my-lit-element></my-lit-element>
+<my-typed-lit-element></my-typed-lit-element>
 <script>
-    var script = document.createElement('script');
+    const script = document.createElement('script');
     script.setAttribute('async', 'async');
     // Internet Explorer 6-11
-    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    const isIE = /*@cc_on!@*/false || !!document.documentMode;
     if (isIE) {
 
         script.setAttribute('src', './dist/es5/bundle.js');

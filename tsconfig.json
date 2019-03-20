@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -9,10 +9,13 @@
     "noImplicitAny": true,
     "declarationDir": "dist/types",
     "declaration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
     "target": "esnext",
     "module": "es2015",
     "strict": true
   },
+
   "include": [
     "src/**/*"
   ],

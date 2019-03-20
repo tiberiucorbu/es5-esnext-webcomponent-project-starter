@@ -1,1 +1,3 @@
-import "./MyElement";
+import "./MyCustom";
+import "./MyLitElement"
+import "./MyTypedLitElement"
