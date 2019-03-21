@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Web Component Demo</title>
+
+    <script src="./dist/es-next/polyfills.js"></script>
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script>
         // Internet Explorer 6-11
@@ -25,17 +27,12 @@
 </head>
 <body>
 <my-element></my-element>
-<my-lit-element></my-lit-element>
-<my-typed-lit-element></my-typed-lit-element>
+<my-typed-lit-element mood="working"></my-typed-lit-element>
 <script>
     const script = document.createElement('script');
     script.setAttribute('async', 'async');
-    // Internet Explorer 6-11
-    const isIE = /*@cc_on!@*/false || !!document.documentMode;
     if (isIE) {
-
         script.setAttribute('src', './dist/es5/bundle.js');
-
     } else {
         script.setAttribute('src', './dist/es-next/bundle.js');
     }
