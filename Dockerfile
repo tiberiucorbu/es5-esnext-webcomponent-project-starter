@@ -2,6 +2,7 @@ FROM node:8-alpine
 
 WORKDIR /node-build
 COPY . .
-VOLUME 'src:src'
-RUN npm ci
-RUN npm run build
+VOLUME 'src:/node-build/src'
+VOLUME 'dist:/node-build/dist'
+RUN npm ci & npm i -g .
+CMD npm run build
