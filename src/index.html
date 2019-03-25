@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Component Demo</title>
 
     <script src="./dist/es-next/polyfills.js"></script>
@@ -10,9 +11,17 @@
         // Internet Explorer 6-11
         const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
-        function loadScript(polyfillScript) {
+        function loadScript(scriptUrl) {
             const script = document.createElement('script');
-            script.setAttribute('src', polyfillScript);
+            script.setAttribute('src', scriptUrl);
+            document.head.appendChild(script);
+            return script;
+        }
+
+        function loadScriptAsync(polyfillScript) {
+            const script = document.createElement('script');
+            script.setAttribute('src', scriptUrl);
+            script.setAttribute('async', "async");
             document.head.appendChild(script);
             return script;
         }
@@ -38,6 +47,17 @@
     }
     document.body.appendChild(script);
 
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/dist/es-next/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
 </script>
 </body>
 </html>
