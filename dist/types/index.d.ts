@@ -1,0 +1,2 @@
+import "./MyCustom";
+import "./MyTypedLitElement";

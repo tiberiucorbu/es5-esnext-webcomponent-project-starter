@@ -7,14 +7,15 @@
     "type-check:watch": "npm run type-check -- --watch",
     "build:types": "tsc --emitDeclarationOnly",
     "build:ts": "tsc -p .",
-    "build:js": "webpack --mode=production",
+    "build:js": "gulp default",
     "build:jses5": "gulp es5",
-    "build": "npm run build:js && npm run build:jses5",
+    "clean": "gulp clean",
+    "build": "gulp",
     "start": "webpack-dev-server --mode=development"
   },
   "author": {
-    "name": "Alexander T.",
-    "email": "alexander.tarasyuk@outlook.com"
+    "name": "Tiberiu  Corbu",
+    "email": "tiberiu.corbu@gmail.com"
   },
   "main": "dist/bundle.js",
   "types": "dist/types/index.d.ts",
@@ -29,15 +30,16 @@
     "@babel/preset-typescript": "7.3.3",
     "babel-loader": "8.0.5",
     "core-js": "3.0.0",
+    "del": "4.0.0",
     "fork-ts-checker-webpack-plugin": "1.0.0",
     "gulp": "4.0.0",
     "gulp-babel": "8.0.0",
-    "html-webpack-plugin": "3.2.0",
     "ts-loader": "5.3.3",
     "typescript": "3.2.2",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
-    "webpack-dev-server": "3.2.1"
+    "webpack-stream": "5.2.1",
+    "html-webpack-plugin": "3.2.0"
   },
   "resolutions": {
     "terser": "3.14.1"

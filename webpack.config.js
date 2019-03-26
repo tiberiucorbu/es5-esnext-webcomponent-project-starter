@@ -1,6 +1,5 @@
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: {
         'bundle': [path.resolve(__dirname, 'src/index.ts')],
@@ -13,6 +12,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/es-next'),
     },
     devtool: "source-map",
+    mode: "production",
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
     },
@@ -22,15 +22,9 @@ module.exports = {
     },
 
     plugins: [
-        new ForkTsCheckerWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'src/index.html',
-            inject: false
-        })
+        new ForkTsCheckerWebpackPlugin()
     ],
     devServer: {
-        // https: true,
-        port : 80
+        port: 80
     }
 };
