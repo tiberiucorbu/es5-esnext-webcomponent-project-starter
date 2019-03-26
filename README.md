@@ -1,23 +1,28 @@
-# Webpack-TypeScript-WebComponent
+# TypeScript to es 5 to next WebComponent setup
 
-> This is sample repository adopts custom elements for ie11 and modern browsers
+This is sample repository adopts custom elements for IE11 and modern browsers
 
 ![network demo](./doc/what-does-it-do.png)
 
+## Demo
 
-## Building the repo
+https://tiberiucorbu.github.io/es5-esnext-webcomponent-project-starter/
+
+## Building
+
+### Building the repo
 
 ```shell
 npm run build
 ```
 
-## Building only types
+### Building only types
 
 ```shell
 npm run build:types
 ```
 
-## Type-Checking the repo
+### Type-Checking the repo
 
 ```shell
 npm run type-check
@@ -33,13 +38,13 @@ npm run type-check:watch
 
 Build it inside a container
 
-## build
+### build
 
     docker build -t es-variants-build .
 
 where `es-variants-build` is a name chosen by you. 
 
-## run
+### run
 
 cmd :
 
@@ -47,5 +52,5 @@ cmd :
 
 bash:
     
-    docker run -v "$pwd/src:/src/src" rest-test
+    docker run -v "$pwd/src:/src/src" es-variants-build
 
