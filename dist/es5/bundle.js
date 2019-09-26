@@ -110,12 +110,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return s.d(t, "a", t), t;
   }, s.o = function (e, t) {
     return Object.prototype.hasOwnProperty.call(e, t);
-  }, s.p = "", s(s.s = 52);
+  }, s.p = "", s(s.s = 54);
 }({
-  52: function _(e, t, s) {
-    e.exports = s(98);
-  },
-  98: function _(e, t, s) {
+  101: function _(e, t, s) {
     "use strict";
 
     s.r(t);
@@ -162,11 +159,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         r = void 0 !== window.customElements && void 0 !== window.customElements.polyfillWrapFlushCallback,
         o = function o(e, t) {
       var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var n = t;
 
-      for (; n !== s;) {
-        var _t = n.nextSibling;
-        e.removeChild(n), n = _t;
+      for (; t !== s;) {
+        var _s = t.nextSibling;
+        e.removeChild(t), t = _s;
       }
     },
         a = {},
@@ -177,101 +173,114 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         p = "$lit$";
 
     var u = function u(e, t) {
-      var _this = this;
-
       _classCallCheck(this, u);
 
       this.parts = [], this.element = t;
-      var s = -1,
-          n = 0;
+      var s = [],
+          n = [],
+          i = document.createTreeWalker(t.content, 133, null, !1);
+      var r = 0,
+          o = -1,
+          a = 0;
+      var l = e.strings,
+          h = e.values.length;
 
-      var i = [],
-          r = function r(t) {
-        var o = t.content,
-            a = document.createTreeWalker(o, 133, null, !1);
-        var l = 0;
+      for (; a < h;) {
+        var _e = i.nextNode();
 
-        for (; a.nextNode();) {
-          s++;
-          var _t2 = a.currentNode;
+        if (null !== _e) {
+          if (o++, 1 === _e.nodeType) {
+            if (_e.hasAttributes()) {
+              var _t = _e.attributes,
+                  _s2 = _t.length;
+              var _n = 0;
 
-          if (1 === _t2.nodeType) {
-            if (_t2.hasAttributes()) {
-              var _i = _t2.attributes;
-              var _r = 0;
-
-              for (var _e = 0; _e < _i.length; _e++) {
-                _i[_e].value.indexOf(c) >= 0 && _r++;
+              for (var _e2 = 0; _e2 < _s2; _e2++) {
+                m(_t[_e2].name, p) && _n++;
               }
 
-              for (; _r-- > 0;) {
-                var _i2 = e.strings[n],
-                    _r2 = y.exec(_i2)[2],
-                    _o = _r2.toLowerCase() + p,
-                    _a = _t2.getAttribute(_o).split(d);
+              for (; _n-- > 0;) {
+                var _t2 = l[a],
+                    _s3 = y.exec(_t2)[2],
+                    _n2 = _s3.toLowerCase() + p,
+                    _i = _e.getAttribute(_n2);
 
-                _this.parts.push({
+                _e.removeAttribute(_n2);
+
+                var _r = _i.split(d);
+
+                this.parts.push({
                   type: "attribute",
-                  index: s,
-                  name: _r2,
-                  strings: _a
-                }), _t2.removeAttribute(_o), n += _a.length - 1;
+                  index: o,
+                  name: _s3,
+                  strings: _r
+                }), a += _r.length - 1;
               }
             }
 
-            "TEMPLATE" === _t2.tagName && r(_t2);
-          } else if (3 === _t2.nodeType) {
-            var _e2 = _t2.data;
+            "TEMPLATE" === _e.tagName && (n.push(_e), i.currentNode = _e.content);
+          } else if (3 === _e.nodeType) {
+            var _t3 = _e.data;
 
-            if (_e2.indexOf(c) >= 0) {
-              var _r3 = _t2.parentNode,
-                  _o2 = _e2.split(d),
-                  _a2 = _o2.length - 1;
+            if (_t3.indexOf(c) >= 0) {
+              var _n3 = _e.parentNode,
+                  _i2 = _t3.split(d),
+                  _r2 = _i2.length - 1;
 
-              for (var _e3 = 0; _e3 < _a2; _e3++) {
-                _r3.insertBefore("" === _o2[_e3] ? f() : document.createTextNode(_o2[_e3]), _t2), _this.parts.push({
+              for (var _t4 = 0; _t4 < _r2; _t4++) {
+                var _s4 = void 0,
+                    _r3 = _i2[_t4];
+
+                if ("" === _r3) _s4 = f();else {
+                  var _e3 = y.exec(_r3);
+
+                  null !== _e3 && m(_e3[2], p) && (_r3 = _r3.slice(0, _e3.index) + _e3[1] + _e3[2].slice(0, -p.length) + _e3[3]), _s4 = document.createTextNode(_r3);
+                }
+                _n3.insertBefore(_s4, _e), this.parts.push({
                   type: "node",
-                  index: ++s
+                  index: ++o
                 });
               }
 
-              "" === _o2[_a2] ? (_r3.insertBefore(f(), _t2), i.push(_t2)) : _t2.data = _o2[_a2], n += _a2;
+              "" === _i2[_r2] ? (_n3.insertBefore(f(), _e), s.push(_e)) : _e.data = _i2[_r2], a += _r2;
             }
-          } else if (8 === _t2.nodeType) if (_t2.data === c) {
-            var _e4 = _t2.parentNode;
-            null !== _t2.previousSibling && s !== l || (s++, _e4.insertBefore(f(), _t2)), l = s, _this.parts.push({
+          } else if (8 === _e.nodeType) if (_e.data === c) {
+            var _t5 = _e.parentNode;
+            null !== _e.previousSibling && o !== r || (o++, _t5.insertBefore(f(), _e)), r = o, this.parts.push({
               type: "node",
-              index: s
-            }), null === _t2.nextSibling ? _t2.data = "" : (i.push(_t2), s--), n++;
+              index: o
+            }), null === _e.nextSibling ? _e.data = "" : (s.push(_e), o--), a++;
           } else {
-            var _e5 = -1;
+            var _t6 = -1;
 
-            for (; -1 !== (_e5 = _t2.data.indexOf(c, _e5 + 1));) {
-              _this.parts.push({
+            for (; -1 !== (_t6 = _e.data.indexOf(c, _t6 + 1));) {
+              this.parts.push({
                 type: "node",
                 index: -1
-              });
+              }), a++;
             }
           }
-        }
-      };
+        } else i.currentNode = n.pop();
+      }
 
-      r(t);
+      for (var _i3 = 0, _s5 = s; _i3 < _s5.length; _i3++) {
+        var _e4 = _s5[_i3];
 
-      for (var _i3 = 0; _i3 < i.length; _i3++) {
-        var _e6 = i[_i3];
-
-        _e6.parentNode.removeChild(_e6);
+        _e4.parentNode.removeChild(_e4);
       }
     };
 
-    var m = function m(e) {
+    var m = function m(e, t) {
+      var s = e.length - t.length;
+      return s >= 0 && e.slice(s) === t;
+    },
+        _ = function _(e) {
       return -1 !== e.index;
     },
         f = function f() {
       return document.createComment("");
     },
-        y = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F \x09\x0a\x0c\x0d"'>=\/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+        y = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=\/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
     /**
      * @license
      * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -287,16 +296,16 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      */
 
 
-    var _ =
+    var g =
     /*#__PURE__*/
     function () {
-      function _(e, t, s) {
-        _classCallCheck(this, _);
+      function g(e, t, s) {
+        _classCallCheck(this, g);
 
-        this._parts = [], this.template = e, this.processor = t, this.options = s;
+        this.__parts = [], this.template = e, this.processor = t, this.options = s;
       }
 
-      _createClass(_, [{
+      _createClass(g, [{
         key: "update",
         value: function update(e) {
           var t = 0;
@@ -305,9 +314,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           var _iteratorError = undefined;
 
           try {
-            for (var _iterator = this._parts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var _s = _step.value;
-              void 0 !== _s && _s.setValue(e[t]), t++;
+            for (var _iterator = this.__parts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var _s6 = _step.value;
+              void 0 !== _s6 && _s6.setValue(e[t]), t++;
             }
           } catch (err) {
             _didIteratorError = true;
@@ -329,9 +338,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           var _iteratorError2 = undefined;
 
           try {
-            for (var _iterator2 = this._parts[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var _e7 = _step2.value;
-              void 0 !== _e7 && _e7.commit();
+            for (var _iterator2 = this.__parts[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var _e5 = _step2.value;
+              void 0 !== _e5 && _e5.commit();
             }
           } catch (err) {
             _didIteratorError2 = true;
@@ -351,85 +360,34 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "_clone",
         value: function _clone() {
-          var _this2 = this;
-
           var e = r ? this.template.element.content.cloneNode(!0) : document.importNode(this.template.element.content, !0),
-              t = this.template.parts;
-          var s = 0,
-              n = 0;
+              t = [],
+              s = this.template.parts,
+              n = document.createTreeWalker(e, 133, null, !1);
+          var i,
+              o = 0,
+              a = 0,
+              l = n.nextNode();
 
-          var i = function i(e) {
-            var r = document.createTreeWalker(e, 133, null, !1);
-            var o = r.nextNode();
+          for (; o < s.length;) {
+            if (i = s[o], _(i)) {
+              var _this$__parts;
 
-            for (; s < t.length && null !== o;) {
-              var _e8 = t[s];
-              if (m(_e8)) {
-                if (n === _e8.index) {
-                  var _this2$_parts;
+              for (; a < i.index;) {
+                a++, "TEMPLATE" === l.nodeName && (t.push(l), n.currentNode = l.content), null === (l = n.nextNode()) && (n.currentNode = t.pop(), l = n.nextNode());
+              }
 
-                  if ("node" === _e8.type) {
-                    var _e9 = _this2.processor.handleTextExpression(_this2.options);
+              if ("node" === i.type) {
+                var _e6 = this.processor.handleTextExpression(this.options);
 
-                    _e9.insertAfterNode(o.previousSibling), _this2._parts.push(_e9);
-                  } else (_this2$_parts = _this2._parts).push.apply(_this2$_parts, _toConsumableArray(_this2.processor.handleAttributeExpressions(o, _e8.name, _e8.strings, _this2.options)));
+                _e6.insertAfterNode(l.previousSibling), this.__parts.push(_e6);
+              } else (_this$__parts = this.__parts).push.apply(_this$__parts, _toConsumableArray(this.processor.handleAttributeExpressions(l, i.name, i.strings, this.options)));
 
-                  s++;
-                } else n++, "TEMPLATE" === o.nodeName && i(o.content), o = r.nextNode();
-              } else _this2._parts.push(void 0), s++;
-            }
-          };
-
-          return i(e), r && (document.adoptNode(e), customElements.upgrade(e)), e;
-        }
-      }]);
-
-      return _;
-    }();
-    /**
-     * @license
-     * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-     * This code may only be used under the BSD style license found at
-     * http://polymer.github.io/LICENSE.txt
-     * The complete set of authors may be found at
-     * http://polymer.github.io/AUTHORS.txt
-     * The complete set of contributors may be found at
-     * http://polymer.github.io/CONTRIBUTORS.txt
-     * Code distributed by Google as part of the polymer project is also
-     * subject to an additional IP rights grant found at
-     * http://polymer.github.io/PATENTS.txt
-     */
-
-
-    var g =
-    /*#__PURE__*/
-    function () {
-      function g(e, t, s, n) {
-        _classCallCheck(this, g);
-
-        this.strings = e, this.values = t, this.type = s, this.processor = n;
-      }
-
-      _createClass(g, [{
-        key: "getHTML",
-        value: function getHTML() {
-          var e = this.strings.length - 1;
-          var t = "";
-
-          for (var _s2 = 0; _s2 < e; _s2++) {
-            var _e10 = this.strings[_s2],
-                _n = y.exec(_e10);
-
-            t += _n ? _e10.substr(0, _n.index) + _n[1] + _n[2] + p + _n[3] + c : _e10 + h;
+              o++;
+            } else this.__parts.push(void 0), o++;
           }
 
-          return t + this.strings[e];
-        }
-      }, {
-        key: "getTemplateElement",
-        value: function getTemplateElement() {
-          var e = document.createElement("template");
-          return e.innerHTML = this.getHTML(), e;
+          return r && (document.adoptNode(e), customElements.upgrade(e)), e;
         }
       }]);
 
@@ -450,27 +408,86 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      */
 
 
-    var S = function S(e) {
-      return null === e || !("object" == _typeof(e) || "function" == typeof e);
-    };
+    var v = " ".concat(c, " ");
 
-    var v =
+    var S =
     /*#__PURE__*/
     function () {
-      function v(e, t, s) {
-        _classCallCheck(this, v);
+      function S(e, t, s, n) {
+        _classCallCheck(this, S);
+
+        this.strings = e, this.values = t, this.type = s, this.processor = n;
+      }
+
+      _createClass(S, [{
+        key: "getHTML",
+        value: function getHTML() {
+          var e = this.strings.length - 1;
+          var t = "",
+              s = !1;
+
+          for (var _n4 = 0; _n4 < e; _n4++) {
+            var _e7 = this.strings[_n4],
+                _i4 = _e7.lastIndexOf("\x3c!--");
+
+            s = (_i4 > -1 || s) && -1 === _e7.indexOf("--\x3e", _i4 + 1);
+
+            var _r4 = y.exec(_e7);
+
+            t += null === _r4 ? _e7 + (s ? v : h) : _e7.substr(0, _r4.index) + _r4[1] + _r4[2] + p + _r4[3] + c;
+          }
+
+          return t += this.strings[e];
+        }
+      }, {
+        key: "getTemplateElement",
+        value: function getTemplateElement() {
+          var e = document.createElement("template");
+          return e.innerHTML = this.getHTML(), e;
+        }
+      }]);
+
+      return S;
+    }();
+    /**
+     * @license
+     * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+     * This code may only be used under the BSD style license found at
+     * http://polymer.github.io/LICENSE.txt
+     * The complete set of authors may be found at
+     * http://polymer.github.io/AUTHORS.txt
+     * The complete set of contributors may be found at
+     * http://polymer.github.io/CONTRIBUTORS.txt
+     * Code distributed by Google as part of the polymer project is also
+     * subject to an additional IP rights grant found at
+     * http://polymer.github.io/PATENTS.txt
+     */
+
+
+    var w = function w(e) {
+      return null === e || !("object" == _typeof(e) || "function" == typeof e);
+    },
+        b = function b(e) {
+      return Array.isArray(e) || !(!e || !e[Symbol.iterator]);
+    };
+
+    var x =
+    /*#__PURE__*/
+    function () {
+      function x(e, t, s) {
+        _classCallCheck(this, x);
 
         this.dirty = !0, this.element = e, this.name = t, this.strings = s, this.parts = [];
 
-        for (var _e11 = 0; _e11 < s.length - 1; _e11++) {
-          this.parts[_e11] = this._createPart();
+        for (var _e8 = 0; _e8 < s.length - 1; _e8++) {
+          this.parts[_e8] = this._createPart();
         }
       }
 
-      _createClass(v, [{
+      _createClass(x, [{
         key: "_createPart",
         value: function _createPart() {
-          return new w(this);
+          return new P(this);
         }
       }, {
         key: "_getValue",
@@ -479,22 +496,21 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               t = e.length - 1;
           var s = "";
 
-          for (var _n2 = 0; _n2 < t; _n2++) {
-            s += e[_n2];
-            var _t3 = this.parts[_n2];
+          for (var _n5 = 0; _n5 < t; _n5++) {
+            s += e[_n5];
+            var _t7 = this.parts[_n5];
 
-            if (void 0 !== _t3) {
-              var _e12 = _t3.value;
-
-              if (null != _e12 && (Array.isArray(_e12) || "string" != typeof _e12 && _e12[Symbol.iterator])) {
+            if (void 0 !== _t7) {
+              var _e9 = _t7.value;
+              if (w(_e9) || !b(_e9)) s += "string" == typeof _e9 ? _e9 : String(_e9);else {
                 var _iteratorNormalCompletion3 = true;
                 var _didIteratorError3 = false;
                 var _iteratorError3 = undefined;
 
                 try {
-                  for (var _iterator3 = _e12[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var _t4 = _step3.value;
-                    s += "string" == typeof _t4 ? _t4 : String(_t4);
+                  for (var _iterator3 = _e9[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    var _t8 = _step3.value;
+                    s += "string" == typeof _t8 ? _t8 : String(_t8);
                   }
                 } catch (err) {
                   _didIteratorError3 = true;
@@ -510,7 +526,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                     }
                   }
                 }
-              } else s += "string" == typeof _e12 ? _e12 : String(_e12);
+              }
             }
           }
 
@@ -523,48 +539,48 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }]);
 
-      return v;
+      return x;
     }();
 
-    var w =
+    var P =
     /*#__PURE__*/
     function () {
-      function w(e) {
-        _classCallCheck(this, w);
+      function P(e) {
+        _classCallCheck(this, P);
 
         this.value = void 0, this.committer = e;
       }
 
-      _createClass(w, [{
+      _createClass(P, [{
         key: "setValue",
         value: function setValue(e) {
-          e === a || S(e) && e === this.value || (this.value = e, i(e) || (this.committer.dirty = !0));
+          e === a || w(e) && e === this.value || (this.value = e, i(e) || (this.committer.dirty = !0));
         }
       }, {
         key: "commit",
         value: function commit() {
           for (; i(this.value);) {
-            var _e13 = this.value;
-            this.value = a, _e13(this);
+            var _e10 = this.value;
+            this.value = a, _e10(this);
           }
 
           this.value !== a && this.committer.commit();
         }
       }]);
 
-      return w;
+      return P;
     }();
 
-    var b =
+    var C =
     /*#__PURE__*/
     function () {
-      function b(e) {
-        _classCallCheck(this, b);
+      function C(e) {
+        _classCallCheck(this, C);
 
-        this.value = void 0, this._pendingValue = void 0, this.options = e;
+        this.value = void 0, this.__pendingValue = void 0, this.options = e;
       }
 
-      _createClass(b, [{
+      _createClass(C, [{
         key: "appendInto",
         value: function appendInto(e) {
           this.startNode = e.appendChild(f()), this.endNode = e.appendChild(f());
@@ -577,59 +593,60 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "appendIntoPart",
         value: function appendIntoPart(e) {
-          e._insert(this.startNode = f()), e._insert(this.endNode = f());
+          e.__insert(this.startNode = f()), e.__insert(this.endNode = f());
         }
       }, {
         key: "insertAfterPart",
         value: function insertAfterPart(e) {
-          e._insert(this.startNode = f()), this.endNode = e.endNode, e.endNode = this.startNode;
+          e.__insert(this.startNode = f()), this.endNode = e.endNode, e.endNode = this.startNode;
         }
       }, {
         key: "setValue",
         value: function setValue(e) {
-          this._pendingValue = e;
+          this.__pendingValue = e;
         }
       }, {
         key: "commit",
         value: function commit() {
-          for (; i(this._pendingValue);) {
-            var _e14 = this._pendingValue;
-            this._pendingValue = a, _e14(this);
+          for (; i(this.__pendingValue);) {
+            var _e11 = this.__pendingValue;
+            this.__pendingValue = a, _e11(this);
           }
 
-          var e = this._pendingValue;
-          e !== a && (S(e) ? e !== this.value && this._commitText(e) : e instanceof g ? this._commitTemplateResult(e) : e instanceof Node ? this._commitNode(e) : Array.isArray(e) || e[Symbol.iterator] ? this._commitIterable(e) : e === l ? (this.value = l, this.clear()) : this._commitText(e));
+          var e = this.__pendingValue;
+          e !== a && (w(e) ? e !== this.value && this.__commitText(e) : e instanceof S ? this.__commitTemplateResult(e) : e instanceof Node ? this.__commitNode(e) : b(e) ? this.__commitIterable(e) : e === l ? (this.value = l, this.clear()) : this.__commitText(e));
         }
       }, {
-        key: "_insert",
-        value: function _insert(e) {
+        key: "__insert",
+        value: function __insert(e) {
           this.endNode.parentNode.insertBefore(e, this.endNode);
         }
       }, {
-        key: "_commitNode",
-        value: function _commitNode(e) {
-          this.value !== e && (this.clear(), this._insert(e), this.value = e);
+        key: "__commitNode",
+        value: function __commitNode(e) {
+          this.value !== e && (this.clear(), this.__insert(e), this.value = e);
         }
       }, {
-        key: "_commitText",
-        value: function _commitText(e) {
-          var t = this.startNode.nextSibling;
-          e = null == e ? "" : e, t === this.endNode.previousSibling && 3 === t.nodeType ? t.data = e : this._commitNode(document.createTextNode("string" == typeof e ? e : String(e))), this.value = e;
+        key: "__commitText",
+        value: function __commitText(e) {
+          var t = this.startNode.nextSibling,
+              s = "string" == typeof (e = null == e ? "" : e) ? e : String(e);
+          t === this.endNode.previousSibling && 3 === t.nodeType ? t.data = s : this.__commitNode(document.createTextNode(s)), this.value = e;
         }
       }, {
-        key: "_commitTemplateResult",
-        value: function _commitTemplateResult(e) {
+        key: "__commitTemplateResult",
+        value: function __commitTemplateResult(e) {
           var t = this.options.templateFactory(e);
-          if (this.value instanceof _ && this.value.template === t) this.value.update(e.values);else {
-            var _s3 = new _(t, e.processor, this.options),
-                _n3 = _s3._clone();
+          if (this.value instanceof g && this.value.template === t) this.value.update(e.values);else {
+            var _s7 = new g(t, e.processor, this.options),
+                _n6 = _s7._clone();
 
-            _s3.update(e.values), this._commitNode(_n3), this.value = _s3;
+            _s7.update(e.values), this.__commitNode(_n6), this.value = _s7;
           }
         }
       }, {
-        key: "_commitIterable",
-        value: function _commitIterable(e) {
+        key: "__commitIterable",
+        value: function __commitIterable(e) {
           Array.isArray(this.value) || (this.value = [], this.clear());
           var t = this.value;
           var s,
@@ -640,8 +657,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
           try {
             for (var _iterator4 = e[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-              var _i4 = _step4.value;
-              void 0 === (s = t[n]) && (s = new b(this.options), t.push(s), 0 === n ? s.appendIntoPart(this) : s.insertAfterPart(t[n - 1])), s.setValue(_i4), s.commit(), n++;
+              var _i5 = _step4.value;
+              void 0 === (s = t[n]) && (s = new C(this.options), t.push(s), 0 === n ? s.appendIntoPart(this) : s.insertAfterPart(t[n - 1])), s.setValue(_i5), s.commit(), n++;
             }
           } catch (err) {
             _didIteratorError4 = true;
@@ -668,64 +685,64 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }]);
 
-      return b;
+      return C;
     }();
 
-    var x =
+    var N =
     /*#__PURE__*/
     function () {
-      function x(e, t, s) {
-        _classCallCheck(this, x);
+      function N(e, t, s) {
+        _classCallCheck(this, N);
 
-        if (this.value = void 0, this._pendingValue = void 0, 2 !== s.length || "" !== s[0] || "" !== s[1]) throw new Error("Boolean attributes can only contain a single expression");
+        if (this.value = void 0, this.__pendingValue = void 0, 2 !== s.length || "" !== s[0] || "" !== s[1]) throw new Error("Boolean attributes can only contain a single expression");
         this.element = e, this.name = t, this.strings = s;
       }
 
-      _createClass(x, [{
+      _createClass(N, [{
         key: "setValue",
         value: function setValue(e) {
-          this._pendingValue = e;
+          this.__pendingValue = e;
         }
       }, {
         key: "commit",
         value: function commit() {
-          for (; i(this._pendingValue);) {
-            var _e15 = this._pendingValue;
-            this._pendingValue = a, _e15(this);
+          for (; i(this.__pendingValue);) {
+            var _e12 = this.__pendingValue;
+            this.__pendingValue = a, _e12(this);
           }
 
-          if (this._pendingValue === a) return;
-          var e = !!this._pendingValue;
-          this.value !== e && (e ? this.element.setAttribute(this.name, "") : this.element.removeAttribute(this.name)), this.value = e, this._pendingValue = a;
+          if (this.__pendingValue === a) return;
+          var e = !!this.__pendingValue;
+          this.value !== e && (e ? this.element.setAttribute(this.name, "") : this.element.removeAttribute(this.name), this.value = e), this.__pendingValue = a;
         }
       }]);
 
-      return x;
+      return N;
     }();
 
-    var P =
+    var T =
     /*#__PURE__*/
-    function (_v) {
-      _inherits(P, _v);
+    function (_x) {
+      _inherits(T, _x);
 
-      function P(e, t, s) {
-        var _this3;
+      function T(e, t, s) {
+        var _this;
 
-        _classCallCheck(this, P);
+        _classCallCheck(this, T);
 
-        _this3 = _possibleConstructorReturn(this, _getPrototypeOf(P).call(this, e, t, s)), _this3.single = 2 === s.length && "" === s[0] && "" === s[1];
-        return _this3;
+        _this = _possibleConstructorReturn(this, _getPrototypeOf(T).call(this, e, t, s)), _this.single = 2 === s.length && "" === s[0] && "" === s[1];
+        return _this;
       }
 
-      _createClass(P, [{
+      _createClass(T, [{
         key: "_createPart",
         value: function _createPart() {
-          return new C(this);
+          return new E(this);
         }
       }, {
         key: "_getValue",
         value: function _getValue() {
-          return this.single ? this.parts[0].value : _get(_getPrototypeOf(P.prototype), "_getValue", this).call(this);
+          return this.single ? this.parts[0].value : _get(_getPrototypeOf(T.prototype), "_getValue", this).call(this);
         }
       }, {
         key: "commit",
@@ -734,67 +751,67 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }]);
 
-      return P;
-    }(v);
+      return T;
+    }(x);
 
-    var C =
+    var E =
     /*#__PURE__*/
-    function (_w) {
-      _inherits(C, _w);
+    function (_P) {
+      _inherits(E, _P);
 
-      function C() {
-        _classCallCheck(this, C);
+      function E() {
+        _classCallCheck(this, E);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(C).apply(this, arguments));
+        return _possibleConstructorReturn(this, _getPrototypeOf(E).apply(this, arguments));
       }
 
-      return C;
-    }(w);
+      return E;
+    }(P);
 
-    var N = !1;
+    var A = !1;
 
     try {
-      var _e16 = {
+      var _e13 = {
         get capture() {
-          return N = !0, !1;
+          return A = !0, !1;
         }
 
       };
-      window.addEventListener("test", _e16, _e16), window.removeEventListener("test", _e16, _e16);
+      window.addEventListener("test", _e13, _e13), window.removeEventListener("test", _e13, _e13);
     } catch (e) {}
 
-    var A =
+    var V =
     /*#__PURE__*/
     function () {
-      function A(e, t, s) {
-        var _this4 = this;
+      function V(e, t, s) {
+        var _this2 = this;
 
-        _classCallCheck(this, A);
+        _classCallCheck(this, V);
 
-        this.value = void 0, this._pendingValue = void 0, this.element = e, this.eventName = t, this.eventContext = s, this._boundHandleEvent = function (e) {
-          return _this4.handleEvent(e);
+        this.value = void 0, this.__pendingValue = void 0, this.element = e, this.eventName = t, this.eventContext = s, this.__boundHandleEvent = function (e) {
+          return _this2.handleEvent(e);
         };
       }
 
-      _createClass(A, [{
+      _createClass(V, [{
         key: "setValue",
         value: function setValue(e) {
-          this._pendingValue = e;
+          this.__pendingValue = e;
         }
       }, {
         key: "commit",
         value: function commit() {
-          for (; i(this._pendingValue);) {
-            var _e17 = this._pendingValue;
-            this._pendingValue = a, _e17(this);
+          for (; i(this.__pendingValue);) {
+            var _e14 = this.__pendingValue;
+            this.__pendingValue = a, _e14(this);
           }
 
-          if (this._pendingValue === a) return;
-          var e = this._pendingValue,
+          if (this.__pendingValue === a) return;
+          var e = this.__pendingValue,
               t = this.value,
               s = null == e || null != t && (e.capture !== t.capture || e.once !== t.once || e.passive !== t.passive),
               n = null != e && (null == t || s);
-          s && this.element.removeEventListener(this.eventName, this._boundHandleEvent, this._options), n && (this._options = T(e), this.element.addEventListener(this.eventName, this._boundHandleEvent, this._options)), this.value = e, this._pendingValue = a;
+          s && this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options), n && (this.__options = O(e), this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options)), this.value = e, this.__pendingValue = a;
         }
       }, {
         key: "handleEvent",
@@ -803,11 +820,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }]);
 
-      return A;
+      return V;
     }();
 
-    var T = function T(e) {
-      return e && (N ? {
+    var O = function O(e) {
+      return e && (A ? {
         capture: e.capture,
         passive: e.passive,
         once: e.once
@@ -828,7 +845,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      */
 
 
-    var E = new (
+    var k = new (
     /*#__PURE__*/
     function () {
       function _class2() {
@@ -839,12 +856,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         key: "handleAttributeExpressions",
         value: function handleAttributeExpressions(e, t, s, n) {
           var i = t[0];
-          return "." === i ? new P(e, t.slice(1), s).parts : "@" === i ? [new A(e, t.slice(1), n.eventContext)] : "?" === i ? [new x(e, t.slice(1), s)] : new v(e, t, s).parts;
+
+          if ("." === i) {
+            return new T(e, t.slice(1), s).parts;
+          }
+
+          return "@" === i ? [new V(e, t.slice(1), n.eventContext)] : "?" === i ? [new N(e, t.slice(1), s)] : new x(e, t, s).parts;
         }
       }, {
         key: "handleTextExpression",
         value: function handleTextExpression(e) {
-          return new b(e);
+          return new C(e);
         }
       }]);
 
@@ -864,20 +886,20 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      * http://polymer.github.io/PATENTS.txt
      */
 
-    function V(e) {
-      var t = k.get(e.type);
+    function M(e) {
+      var t = R.get(e.type);
       void 0 === t && (t = {
         stringsArray: new WeakMap(),
         keyString: new Map()
-      }, k.set(e.type, t));
+      }, R.set(e.type, t));
       var s = t.stringsArray.get(e.strings);
       if (void 0 !== s) return s;
       var n = e.strings.join(c);
       return void 0 === (s = t.keyString.get(n)) && (s = new u(e, e.getTemplateElement()), t.keyString.set(n, s)), t.stringsArray.set(e.strings, s), s;
     }
 
-    var k = new Map(),
-        O = new WeakMap();
+    var R = new Map(),
+        j = new WeakMap();
     /**
      * @license
      * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -906,14 +928,22 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      * http://polymer.github.io/PATENTS.txt
      */
 
-    (window.litHtmlVersions || (window.litHtmlVersions = [])).push("1.0.0");
-    var R = 133;
+    (window.litHtmlVersions || (window.litHtmlVersions = [])).push("1.1.2");
 
-    function M(e, t) {
+    var U = function U(e) {
+      for (var _len = arguments.length, t = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        t[_key - 1] = arguments[_key];
+      }
+
+      return new S(e, t, "html", k);
+    },
+        q = 133;
+
+    function z(e, t) {
       var s = e.element.content,
           n = e.parts,
-          i = document.createTreeWalker(s, R, null, !1);
-      var r = U(n),
+          i = document.createTreeWalker(s, q, null, !1);
+      var r = F(n),
           o = n[r],
           a = -1,
           l = 0;
@@ -922,10 +952,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       for (; i.nextNode();) {
         a++;
-        var _e18 = i.currentNode;
+        var _e15 = i.currentNode;
 
-        for (_e18.previousSibling === h && (h = null), t.has(_e18) && (c.push(_e18), null === h && (h = _e18)), null !== h && l++; void 0 !== o && o.index === a;) {
-          o.index = null !== h ? -1 : o.index - l, o = n[r = U(n, r)];
+        for (_e15.previousSibling === h && (h = null), t.has(_e15) && (c.push(_e15), null === h && (h = _e15)), null !== h && l++; void 0 !== o && o.index === a;) {
+          o.index = null !== h ? -1 : o.index - l, o = n[r = F(n, r)];
         }
       }
 
@@ -934,9 +964,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       });
     }
 
-    var j = function j(e) {
+    var L = function L(e) {
       var t = 11 === e.nodeType ? 0 : 1;
-      var s = document.createTreeWalker(e, R, null, !1);
+      var s = document.createTreeWalker(e, q, null, !1);
 
       for (; s.nextNode();) {
         t++;
@@ -944,12 +974,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       return t;
     },
-        U = function U(e) {
+        F = function F(e) {
       var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
 
-      for (var _s4 = t + 1; _s4 < e.length; _s4++) {
-        var _t5 = e[_s4];
-        if (m(_t5)) return _s4;
+      for (var _s8 = t + 1; _s8 < e.length; _s8++) {
+        var _t9 = e[_s8];
+        if (_(_t9)) return _s8;
       }
 
       return -1;
@@ -969,113 +999,102 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      */
 
 
-    var z = function z(e, t) {
+    var H = function H(e, t) {
       return "".concat(e, "--").concat(t);
     };
 
-    var q = !0;
-    void 0 === window.ShadyCSS ? q = !1 : void 0 === window.ShadyCSS.prepareTemplateDom && (console.warn("Incompatible ShadyCSS version detected.Please update to at least @webcomponents/webcomponentsjs@2.0.2 and@webcomponents/shadycss@1.3.1."), q = !1);
+    var $ = !0;
+    void 0 === window.ShadyCSS ? $ = !1 : void 0 === window.ShadyCSS.prepareTemplateDom && (console.warn("Incompatible ShadyCSS version detected. Please update to at least @webcomponents/webcomponentsjs@2.0.2 and @webcomponents/shadycss@1.3.1."), $ = !1);
 
-    var L = function L(e) {
+    var I = function I(e) {
       return function (t) {
-        var s = z(t.type, e);
-        var n = k.get(s);
+        var s = H(t.type, e);
+        var n = R.get(s);
         void 0 === n && (n = {
           stringsArray: new WeakMap(),
           keyString: new Map()
-        }, k.set(s, n));
+        }, R.set(s, n));
         var i = n.stringsArray.get(t.strings);
         if (void 0 !== i) return i;
         var r = t.strings.join(c);
 
         if (void 0 === (i = n.keyString.get(r))) {
-          var _s5 = t.getTemplateElement();
+          var _s9 = t.getTemplateElement();
 
-          q && window.ShadyCSS.prepareTemplateDom(_s5, e), i = new u(t, _s5), n.keyString.set(r, i);
+          $ && window.ShadyCSS.prepareTemplateDom(_s9, e), i = new u(t, _s9), n.keyString.set(r, i);
         }
 
         return n.stringsArray.set(t.strings, i), i;
       };
     },
-        F = ["html", "svg"],
-        H = new Set(),
-        $ = function $(e, t, s) {
-      H.add(s);
-      var n = e.querySelectorAll("style");
-      if (0 === n.length) return void window.ShadyCSS.prepareTemplateStyles(t.element, s);
-      var i = document.createElement("style");
+        B = ["html", "svg"],
+        W = new Set(),
+        J = function J(e, t, s) {
+      W.add(e);
+      var n = s ? s.element : document.createElement("template"),
+          i = t.querySelectorAll("style"),
+          r = i.length;
+      if (0 === r) return void window.ShadyCSS.prepareTemplateStyles(n, e);
+      var o = document.createElement("style");
 
-      for (var _e19 = 0; _e19 < n.length; _e19++) {
-        var _t6 = n[_e19];
-        _t6.parentNode.removeChild(_t6), i.textContent += _t6.textContent;
+      for (var _e16 = 0; _e16 < r; _e16++) {
+        var _t10 = i[_e16];
+        _t10.parentNode.removeChild(_t10), o.textContent += _t10.textContent;
       }
 
-      if (function (e) {
-        F.forEach(function (t) {
-          var s = k.get(z(t, e));
+      (function (e) {
+        B.forEach(function (t) {
+          var s = R.get(H(t, e));
           void 0 !== s && s.keyString.forEach(function (e) {
             var t = e.element.content,
                 s = new Set();
             Array.from(t.querySelectorAll("style")).forEach(function (e) {
               s.add(e);
-            }), M(e, s);
+            }), z(e, s);
           });
         });
-      }(s), function (e, t) {
+      })(e);
+
+      var a = n.content;
+      s ? function (e, t) {
         var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
         var n = e.element.content,
             i = e.parts;
         if (null == s) return void n.appendChild(t);
-        var r = document.createTreeWalker(n, R, null, !1);
-        var o = U(i),
+        var r = document.createTreeWalker(n, q, null, !1);
+        var o = F(i),
             a = 0,
             l = -1;
 
         for (; r.nextNode();) {
-          for (l++, r.currentNode === s && (a = j(t), s.parentNode.insertBefore(t, s)); -1 !== o && i[o].index === l;) {
+          for (l++, r.currentNode === s && (a = L(t), s.parentNode.insertBefore(t, s)); -1 !== o && i[o].index === l;) {
             if (a > 0) {
               for (; -1 !== o;) {
-                i[o].index += a, o = U(i, o);
+                i[o].index += a, o = F(i, o);
               }
 
               return;
             }
 
-            o = U(i, o);
+            o = F(i, o);
           }
         }
-      }(t, i, t.element.content.firstChild), window.ShadyCSS.prepareTemplateStyles(t.element, s), window.ShadyCSS.nativeShadow) {
-        var _s6 = t.element.content.querySelector("style");
+      }(s, o, a.firstChild) : a.insertBefore(o, a.firstChild), window.ShadyCSS.prepareTemplateStyles(n, e);
+      var l = a.querySelector("style");
+      if (window.ShadyCSS.nativeShadow && null !== l) t.insertBefore(l.cloneNode(!0), t.firstChild);else if (s) {
+        a.insertBefore(o, a.firstChild);
 
-        e.insertBefore(_s6.cloneNode(!0), e.firstChild);
-      } else {
-        t.element.content.insertBefore(i, t.element.content.firstChild);
+        var _e17 = new Set();
 
-        var _e20 = new Set();
-
-        _e20.add(i), M(t, _e20);
+        _e17.add(o), z(s, _e17);
       }
     };
-    /**
-     * @license
-     * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-     * This code may only be used under the BSD style license found at
-     * http://polymer.github.io/LICENSE.txt
-     * The complete set of authors may be found at
-     * http://polymer.github.io/AUTHORS.txt
-     * The complete set of contributors may be found at
-     * http://polymer.github.io/CONTRIBUTORS.txt
-     * Code distributed by Google as part of the polymer project is also
-     * subject to an additional IP rights grant found at
-     * http://polymer.github.io/PATENTS.txt
-     */
-
 
     window.JSCompiler_renameProperty = function (e, t) {
       return e;
     };
 
-    var I = {
+    var D = {
       toAttribute: function toAttribute(e, t) {
         switch (t) {
           case Boolean:
@@ -1104,67 +1123,68 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         return e;
       }
     },
-        B = function B(e, t) {
+        G = function G(e, t) {
       return t !== e && (t == t || e == e);
     },
-        W = {
+        K = {
       attribute: !0,
       type: String,
-      converter: I,
+      converter: D,
       reflect: !1,
-      hasChanged: B
+      hasChanged: G
     },
-        J = Promise.resolve(!0),
-        D = 1,
-        G = 4,
-        K = 8,
-        Q = 16,
-        X = 32;
+        Q = Promise.resolve(!0),
+        X = 1,
+        Y = 4,
+        Z = 8,
+        ee = 16,
+        te = 32,
+        se = "finalized";
 
-    var Y =
+    var ne =
     /*#__PURE__*/
     function (_HTMLElement2) {
-      _inherits(Y, _HTMLElement2);
+      _inherits(ne, _HTMLElement2);
 
-      function Y() {
-        var _this5;
+      function ne() {
+        var _this3;
 
-        _classCallCheck(this, Y);
+        _classCallCheck(this, ne);
 
-        _this5 = _possibleConstructorReturn(this, _getPrototypeOf(Y).call(this)), _this5._updateState = 0, _this5._instanceProperties = void 0, _this5._updatePromise = J, _this5._hasConnectedResolver = void 0, _this5._changedProperties = new Map(), _this5._reflectingProperties = void 0, _this5.initialize();
-        return _this5;
+        _this3 = _possibleConstructorReturn(this, _getPrototypeOf(ne).call(this)), _this3._updateState = 0, _this3._instanceProperties = void 0, _this3._updatePromise = Q, _this3._hasConnectedResolver = void 0, _this3._changedProperties = new Map(), _this3._reflectingProperties = void 0, _this3.initialize();
+        return _this3;
       }
 
-      _createClass(Y, [{
+      _createClass(ne, [{
         key: "initialize",
         value: function initialize() {
-          this._saveInstanceProperties();
+          this._saveInstanceProperties(), this._requestUpdate();
         }
       }, {
         key: "_saveInstanceProperties",
         value: function _saveInstanceProperties() {
-          var _this6 = this;
+          var _this4 = this;
 
           this.constructor._classProperties.forEach(function (e, t) {
-            if (_this6.hasOwnProperty(t)) {
-              var _e21 = _this6[t];
-              delete _this6[t], _this6._instanceProperties || (_this6._instanceProperties = new Map()), _this6._instanceProperties.set(t, _e21);
+            if (_this4.hasOwnProperty(t)) {
+              var _e18 = _this4[t];
+              delete _this4[t], _this4._instanceProperties || (_this4._instanceProperties = new Map()), _this4._instanceProperties.set(t, _e18);
             }
           });
         }
       }, {
         key: "_applyInstanceProperties",
         value: function _applyInstanceProperties() {
-          var _this7 = this;
+          var _this5 = this;
 
           this._instanceProperties.forEach(function (e, t) {
-            return _this7[t] = e;
+            return _this5[t] = e;
           }), this._instanceProperties = void 0;
         }
       }, {
         key: "connectedCallback",
         value: function connectedCallback() {
-          this._updateState = this._updateState | X, this._hasConnectedResolver ? (this._hasConnectedResolver(), this._hasConnectedResolver = void 0) : this.requestUpdate();
+          this._updateState = this._updateState | te, this._hasConnectedResolver && (this._hasConnectedResolver(), this._hasConnectedResolver = void 0);
         }
       }, {
         key: "disconnectedCallback",
@@ -1177,45 +1197,50 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "_propertyToAttribute",
         value: function _propertyToAttribute(e, t) {
-          var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : W;
+          var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : K;
 
           var n = this.constructor,
               i = n._attributeNameForProperty(e, s);
 
           if (void 0 !== i) {
-            var _e22 = n._propertyValueToAttribute(t, s);
+            var _e19 = n._propertyValueToAttribute(t, s);
 
-            if (void 0 === _e22) return;
-            this._updateState = this._updateState | K, null == _e22 ? this.removeAttribute(i) : this.setAttribute(i, _e22), this._updateState = this._updateState & ~K;
+            if (void 0 === _e19) return;
+            this._updateState = this._updateState | Z, null == _e19 ? this.removeAttribute(i) : this.setAttribute(i, _e19), this._updateState = this._updateState & ~Z;
           }
         }
       }, {
         key: "_attributeToProperty",
         value: function _attributeToProperty(e, t) {
-          if (this._updateState & K) return;
+          if (this._updateState & Z) return;
 
           var s = this.constructor,
               n = s._attributeToPropertyMap.get(e);
 
           if (void 0 !== n) {
-            var _e23 = s._classProperties.get(n) || W;
+            var _e20 = s._classProperties.get(n) || K;
 
-            this._updateState = this._updateState | Q, this[n] = s._propertyValueFromAttribute(t, _e23), this._updateState = this._updateState & ~Q;
+            this._updateState = this._updateState | ee, this[n] = s._propertyValueFromAttribute(t, _e20), this._updateState = this._updateState & ~ee;
           }
+        }
+      }, {
+        key: "_requestUpdate",
+        value: function _requestUpdate(e, t) {
+          var s = !0;
+
+          if (void 0 !== e) {
+            var _n7 = this.constructor,
+                _i6 = _n7._classProperties.get(e) || K;
+
+            _n7._valueHasChanged(this[e], t, _i6.hasChanged) ? (this._changedProperties.has(e) || this._changedProperties.set(e, t), !0 !== _i6.reflect || this._updateState & ee || (void 0 === this._reflectingProperties && (this._reflectingProperties = new Map()), this._reflectingProperties.set(e, _i6))) : s = !1;
+          }
+
+          !this._hasRequestedUpdate && s && this._enqueueUpdate();
         }
       }, {
         key: "requestUpdate",
         value: function requestUpdate(e, t) {
-          var s = !0;
-
-          if (void 0 !== e && !this._changedProperties.has(e)) {
-            var _n4 = this.constructor,
-                _i5 = _n4._classProperties.get(e) || W;
-
-            _n4._valueHasChanged(this[e], t, _i5.hasChanged) ? (this._changedProperties.set(e, t), !0 !== _i5.reflect || this._updateState & Q || (void 0 === this._reflectingProperties && (this._reflectingProperties = new Map()), this._reflectingProperties.set(e, _i5))) : s = !1;
-          }
-
-          return !this._hasRequestedUpdate && s && this._enqueueUpdate(), this.updateComplete;
+          return this._requestUpdate(e, t), this.updateComplete;
         }
       }, {
         key: "_enqueueUpdate",
@@ -1223,55 +1248,75 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           var _enqueueUpdate2 = _asyncToGenerator(
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var _this8 = this;
+            var _this6 = this;
 
-            var e, t, s;
+            var e, t, s, _e21;
+
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    this._updateState = this._updateState | G;
-                    t = this._updatePromise;
-                    this._updatePromise = new Promise(function (t) {
-                      return e = t;
+                    this._updateState = this._updateState | Y;
+                    s = this._updatePromise;
+                    this._updatePromise = new Promise(function (s, n) {
+                      e = s, t = n;
                     });
-                    _context.next = 5;
-                    return t;
+                    _context.prev = 3;
+                    _context.next = 6;
+                    return s;
 
-                  case 5:
-                    _context.t0 = this._hasConnected;
+                  case 6:
+                    _context.next = 10;
+                    break;
 
-                    if (_context.t0) {
-                      _context.next = 9;
-                      break;
-                    }
+                  case 8:
+                    _context.prev = 8;
+                    _context.t0 = _context["catch"](3);
 
-                    _context.next = 9;
-                    return new Promise(function (e) {
-                      return _this8._hasConnectedResolver = e;
-                    });
+                  case 10:
+                    _context.t1 = this._hasConnected;
 
-                  case 9:
-                    s = this.performUpdate();
-                    _context.t1 = null != s && "function" == typeof s.then;
-
-                    if (!_context.t1) {
+                    if (_context.t1) {
                       _context.next = 14;
                       break;
                     }
 
                     _context.next = 14;
-                    return s;
+                    return new Promise(function (e) {
+                      return _this6._hasConnectedResolver = e;
+                    });
 
                   case 14:
+                    _context.prev = 14;
+                    _e21 = this.performUpdate();
+                    _context.t2 = null != _e21;
+
+                    if (!_context.t2) {
+                      _context.next = 20;
+                      break;
+                    }
+
+                    _context.next = 20;
+                    return _e21;
+
+                  case 20:
+                    _context.next = 25;
+                    break;
+
+                  case 22:
+                    _context.prev = 22;
+                    _context.t3 = _context["catch"](14);
+                    t(_context.t3);
+
+                  case 25:
                     e(!this._hasRequestedUpdate);
 
-                  case 15:
+                  case 26:
                   case "end":
                     return _context.stop();
                 }
               }
-            }, _callee, this);
+            }, _callee, this, [[3, 8], [14, 22]]);
           }));
 
           function _enqueueUpdate() {
@@ -1283,15 +1328,29 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "performUpdate",
         value: function performUpdate() {
-          if (this._instanceProperties && this._applyInstanceProperties(), this.shouldUpdate(this._changedProperties)) {
-            var _e24 = this._changedProperties;
-            this.update(_e24), this._markUpdated(), this._updateState & D || (this._updateState = this._updateState | D, this.firstUpdated(_e24)), this.updated(_e24);
-          } else this._markUpdated();
+          this._instanceProperties && this._applyInstanceProperties();
+          var e = !1;
+          var t = this._changedProperties;
+
+          try {
+            (e = this.shouldUpdate(t)) && this.update(t);
+          } catch (t) {
+            throw e = !1, t;
+          } finally {
+            this._markUpdated();
+          }
+
+          e && (this._updateState & X || (this._updateState = this._updateState | X, this.firstUpdated(t)), this.updated(t));
         }
       }, {
         key: "_markUpdated",
         value: function _markUpdated() {
-          this._changedProperties = new Map(), this._updateState = this._updateState & ~G;
+          this._changedProperties = new Map(), this._updateState = this._updateState & ~Y;
+        }
+      }, {
+        key: "_getUpdateComplete",
+        value: function _getUpdateComplete() {
+          return this._updatePromise;
         }
       }, {
         key: "shouldUpdate",
@@ -1301,10 +1360,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "update",
         value: function update(e) {
-          var _this9 = this;
+          var _this7 = this;
 
           void 0 !== this._reflectingProperties && this._reflectingProperties.size > 0 && (this._reflectingProperties.forEach(function (e, t) {
-            return _this9._propertyToAttribute(t, _this9[t], e);
+            return _this7._propertyToAttribute(t, _this7[t], e);
           }), this._reflectingProperties = void 0);
         }
       }, {
@@ -1316,42 +1375,42 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "_hasConnected",
         get: function get() {
-          return this._updateState & X;
+          return this._updateState & te;
         }
       }, {
         key: "_hasRequestedUpdate",
         get: function get() {
-          return this._updateState & G;
+          return this._updateState & Y;
         }
       }, {
         key: "hasUpdated",
         get: function get() {
-          return this._updateState & D;
+          return this._updateState & X;
         }
       }, {
         key: "updateComplete",
         get: function get() {
-          return this._updatePromise;
+          return this._getUpdateComplete();
         }
       }], [{
         key: "_ensureClassProperties",
         value: function _ensureClassProperties() {
-          var _this10 = this;
+          var _this8 = this;
 
           if (!this.hasOwnProperty(JSCompiler_renameProperty("_classProperties", this))) {
             this._classProperties = new Map();
 
-            var _e25 = Object.getPrototypeOf(this)._classProperties;
+            var e = Object.getPrototypeOf(this)._classProperties;
 
-            void 0 !== _e25 && _e25.forEach(function (e, t) {
-              return _this10._classProperties.set(t, e);
+            void 0 !== e && e.forEach(function (e, t) {
+              return _this8._classProperties.set(t, e);
             });
           }
         }
       }, {
         key: "createProperty",
         value: function createProperty(e) {
-          var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : W;
+          var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : K;
           if (this._ensureClassProperties(), this._classProperties.set(e, t), t.noAccessor || this.prototype.hasOwnProperty(e)) return;
           var s = "symbol" == _typeof(e) ? Symbol() : "__".concat(e);
           Object.defineProperty(this.prototype, e, {
@@ -1360,7 +1419,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             },
             set: function set(t) {
               var n = this[e];
-              this[s] = t, this.requestUpdate(e, n);
+              this[s] = t, this._requestUpdate(e, n);
             },
             configurable: !0,
             enumerable: !0
@@ -1369,21 +1428,19 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "finalize",
         value: function finalize() {
-          if (this.hasOwnProperty(JSCompiler_renameProperty("finalized", this)) && this.finalized) return;
           var e = Object.getPrototypeOf(this);
 
-          if ("function" == typeof e.finalize && e.finalize(), this.finalized = !0, this._ensureClassProperties(), this._attributeToPropertyMap = new Map(), this.hasOwnProperty(JSCompiler_renameProperty("properties", this))) {
-            var _e26 = this.properties,
-                _t7 = [].concat(_toConsumableArray(Object.getOwnPropertyNames(_e26)), _toConsumableArray("function" == typeof Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(_e26) : []));
-
+          if (e.hasOwnProperty(se) || e.finalize(), this[se] = !0, this._ensureClassProperties(), this._attributeToPropertyMap = new Map(), this.hasOwnProperty(JSCompiler_renameProperty("properties", this))) {
+            var _e22 = this.properties,
+                t = [].concat(_toConsumableArray(Object.getOwnPropertyNames(_e22)), _toConsumableArray("function" == typeof Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(_e22) : []));
             var _iteratorNormalCompletion5 = true;
             var _didIteratorError5 = false;
             var _iteratorError5 = undefined;
 
             try {
-              for (var _iterator5 = _t7[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var _s7 = _step5.value;
-                this.createProperty(_s7, _e26[_s7]);
+              for (var _iterator5 = t[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var _s10 = _step5.value;
+                this.createProperty(_s10, _e22[_s10]);
               }
             } catch (err) {
               _didIteratorError5 = true;
@@ -1410,14 +1467,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "_valueHasChanged",
         value: function _valueHasChanged(e, t) {
-          var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : B;
+          var s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : G;
           return s(e, t);
         }
       }, {
         key: "_propertyValueFromAttribute",
         value: function _propertyValueFromAttribute(e, t) {
           var s = t.type,
-              n = t.converter || I,
+              n = t.converter || D,
               i = "function" == typeof n ? n : n.fromAttribute;
           return i ? i(e, s) : e;
         }
@@ -1427,27 +1484,27 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           if (void 0 === t.reflect) return;
           var s = t.type,
               n = t.converter;
-          return (n && n.toAttribute || I.toAttribute)(e, s);
+          return (n && n.toAttribute || D.toAttribute)(e, s);
         }
       }, {
         key: "observedAttributes",
         get: function get() {
-          var _this11 = this;
+          var _this9 = this;
 
           this.finalize();
           var e = [];
           return this._classProperties.forEach(function (t, s) {
-            var n = _this11._attributeNameForProperty(s, t);
+            var n = _this9._attributeNameForProperty(s, t);
 
-            void 0 !== n && (_this11._attributeToPropertyMap.set(n, s), e.push(n));
+            void 0 !== n && (_this9._attributeToPropertyMap.set(n, s), e.push(n));
           }), e;
         }
       }]);
 
-      return Y;
+      return ne;
     }(_wrapNativeSuper(HTMLElement));
 
-    Y.finalized = !0;
+    ne[se] = !0;
     /**
      * @license
      * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -1462,7 +1519,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      * http://polymer.github.io/PATENTS.txt
      */
 
-    var Z = function Z(e, t) {
+    var ie = function ie(e, t) {
       return "method" !== t.kind || !t.descriptor || "value" in t.descriptor ? {
         kind: "field",
         key: Symbol(),
@@ -1480,57 +1537,24 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       });
     },
-        ee = function ee(e, t, s) {
+        re = function re(e, t, s) {
       t.constructor.createProperty(s, e);
     };
 
-    ne(function (e, t) {
-      return e.querySelector(t);
-    }), ne(function (e, t) {
-      return e.querySelectorAll(t);
-    });
+    var oe = "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype,
+        ae = Symbol();
 
-    var te = function te(e, t, s) {
-      Object.defineProperty(t, s, e);
-    },
-        se = function se(e, t) {
-      return {
-        kind: "method",
-        placement: "prototype",
-        key: t.key,
-        descriptor: e
-      };
-    };
-
-    function ne(e) {
-      return function (t) {
-        return function (s, n) {
-          var i = {
-            get: function get() {
-              return e(this.renderRoot, t);
-            },
-            enumerable: !0,
-            configurable: !0
-          };
-          return void 0 !== n ? te(i, s, n) : se(i, s);
-        };
-      };
-    }
-
-    var ie = "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype,
-        re = Symbol();
-
-    var oe =
+    var le =
     /*#__PURE__*/
     function () {
-      function oe(e, t) {
-        _classCallCheck(this, oe);
+      function le(e, t) {
+        _classCallCheck(this, le);
 
-        if (t !== re) throw new Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+        if (t !== ae) throw new Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
         this.cssText = e;
       }
 
-      _createClass(oe, [{
+      _createClass(le, [{
         key: "toString",
         value: function toString() {
           return this.cssText;
@@ -1538,11 +1562,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "styleSheet",
         get: function get() {
-          return void 0 === this._styleSheet && (ie ? (this._styleSheet = new CSSStyleSheet(), this._styleSheet.replaceSync(this.cssText)) : this._styleSheet = null), this._styleSheet;
+          return void 0 === this._styleSheet && (oe ? (this._styleSheet = new CSSStyleSheet(), this._styleSheet.replaceSync(this.cssText)) : this._styleSheet = null), this._styleSheet;
         }
       }]);
 
-      return oe;
+      return le;
     }();
     /**
      * @license
@@ -1559,36 +1583,36 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      */
 
 
-    (window.litElementVersions || (window.litElementVersions = [])).push("2.0.1");
+    (window.litElementVersions || (window.litElementVersions = [])).push("2.2.1");
 
-    var ae = function ae(e) {
+    var ce = function ce(e) {
       return e.flat ? e.flat(1 / 0) : function e(t) {
         var s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-        for (var _n5 = 0, _i6 = t.length; _n5 < _i6; _n5++) {
-          var _i7 = t[_n5];
-          Array.isArray(_i7) ? e(_i7, s) : s.push(_i7);
+        for (var _n8 = 0, _i7 = t.length; _n8 < _i7; _n8++) {
+          var _i8 = t[_n8];
+          Array.isArray(_i8) ? e(_i8, s) : s.push(_i8);
         }
 
         return s;
       }(e);
     };
 
-    var le =
+    var he =
     /*#__PURE__*/
-    function (_Y) {
-      _inherits(le, _Y);
+    function (_ne) {
+      _inherits(he, _ne);
 
-      function le() {
-        _classCallCheck(this, le);
+      function he() {
+        _classCallCheck(this, he);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(le).apply(this, arguments));
+        return _possibleConstructorReturn(this, _getPrototypeOf(he).apply(this, arguments));
       }
 
-      _createClass(le, [{
+      _createClass(he, [{
         key: "initialize",
         value: function initialize() {
-          _get(_getPrototypeOf(le.prototype), "initialize", this).call(this), this.renderRoot = this.createRenderRoot(), window.ShadowRoot && this.renderRoot instanceof window.ShadowRoot && this.adoptStyles();
+          _get(_getPrototypeOf(he.prototype), "initialize", this).call(this), this.renderRoot = this.createRenderRoot(), window.ShadowRoot && this.renderRoot instanceof window.ShadowRoot && this.adoptStyles();
         }
       }, {
         key: "createRenderRoot",
@@ -1601,7 +1625,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         key: "adoptStyles",
         value: function adoptStyles() {
           var e = this.constructor._styles;
-          0 !== e.length && (void 0 === window.ShadyCSS || window.ShadyCSS.nativeShadow ? ie ? this.renderRoot.adoptedStyleSheets = e.map(function (e) {
+          0 !== e.length && (void 0 === window.ShadyCSS || window.ShadyCSS.nativeShadow ? oe ? this.renderRoot.adoptedStyleSheets = e.map(function (e) {
             return e.styleSheet;
           }) : this._needsShimAdoptedStyleSheets = !0 : window.ShadyCSS.ScopingShim.prepareAdoptedCssText(e.map(function (e) {
             return e.cssText;
@@ -1610,22 +1634,22 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }, {
         key: "connectedCallback",
         value: function connectedCallback() {
-          _get(_getPrototypeOf(le.prototype), "connectedCallback", this).call(this), this.hasUpdated && void 0 !== window.ShadyCSS && window.ShadyCSS.styleElement(this);
+          _get(_getPrototypeOf(he.prototype), "connectedCallback", this).call(this), this.hasUpdated && void 0 !== window.ShadyCSS && window.ShadyCSS.styleElement(this);
         }
       }, {
         key: "update",
         value: function update(e) {
-          var _this12 = this;
+          var _this10 = this;
 
-          _get(_getPrototypeOf(le.prototype), "update", this).call(this, e);
+          _get(_getPrototypeOf(he.prototype), "update", this).call(this, e);
 
           var t = this.render();
-          t instanceof g && this.constructor.render(t, this.renderRoot, {
+          t instanceof S && this.constructor.render(t, this.renderRoot, {
             scopeName: this.localName,
             eventContext: this
           }), this._needsShimAdoptedStyleSheets && (this._needsShimAdoptedStyleSheets = !1, this.constructor._styles.forEach(function (e) {
             var t = document.createElement("style");
-            t.textContent = e.cssText, _this12.renderRoot.appendChild(t);
+            t.textContent = e.cssText, _this10.renderRoot.appendChild(t);
           }));
         }
       }, {
@@ -1634,7 +1658,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }], [{
         key: "finalize",
         value: function finalize() {
-          _get(_getPrototypeOf(le), "finalize", this).call(this), this._styles = this.hasOwnProperty(JSCompiler_renameProperty("styles", this)) ? this._getUniqueStyles() : this._styles || [];
+          _get(_getPrototypeOf(he), "finalize", this).call(this), this._styles = this.hasOwnProperty(JSCompiler_renameProperty("styles", this)) ? this._getUniqueStyles() : this._styles || [];
         }
       }, {
         key: "_getUniqueStyles",
@@ -1643,7 +1667,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               t = [];
 
           if (Array.isArray(e)) {
-            ae(e).reduceRight(function (e, t) {
+            ce(e).reduceRight(function (e, t) {
               return e.add(t), e;
             }, new Set()).forEach(function (e) {
               return t.unshift(e);
@@ -1654,33 +1678,38 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }]);
 
-      return le;
-    }(Y);
+      return he;
+    }(ne);
 
-    le.finalized = !0, le.render = function (e, t, s) {
+    he.finalized = !0, he.render = function (e, t, s) {
+      if (!s || "object" != _typeof(s) || !s.scopeName) throw new Error("The `scopeName` option is required.");
       var n = s.scopeName,
-          i = O.has(t),
-          r = t instanceof ShadowRoot && q && e instanceof g,
-          a = r && !H.has(n),
+          i = j.has(t),
+          r = $ && 11 === t.nodeType && !!t.host,
+          a = r && !W.has(n),
           l = a ? document.createDocumentFragment() : t;
 
       if (function (e, t, s) {
-        var n = O.get(t);
-        void 0 === n && (o(t, t.firstChild), O.set(t, n = new b(Object.assign({
-          templateFactory: V
+        var n = j.get(t);
+        void 0 === n && (o(t, t.firstChild), j.set(t, n = new C(Object.assign({
+          templateFactory: M
         }, s))), n.appendInto(t)), n.setValue(e), n.commit();
       }(e, l, Object.assign({
-        templateFactory: L(n)
+        templateFactory: I(n)
       }, s)), a) {
-        var _e27 = O.get(l);
+        var _e23 = j.get(l);
 
-        O.delete(l), _e27.value instanceof _ && $(l, _e27.value.template, n), o(t, t.firstChild), t.appendChild(l), O.set(t, _e27);
+        j.delete(l);
+
+        var _s11 = _e23.value instanceof g ? _e23.value.template : void 0;
+
+        J(n, l, _s11), o(t, t.firstChild), t.appendChild(l), j.set(t, _e23);
       }
 
       !i && r && window.ShadyCSS.styleElement(t.host);
     };
 
-    var ce = function ce(e, t, s, n) {
+    var de = function de(e, t, s, n) {
       var i,
           r = arguments.length,
           o = r < 3 ? t : null === n ? n = Object.getOwnPropertyDescriptor(t, s) : n;
@@ -1690,52 +1719,47 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return r > 3 && o && Object.defineProperty(t, s, o), o;
     };
 
-    var he =
+    var pe =
     /*#__PURE__*/
-    function (_le) {
-      _inherits(he, _le);
+    function (_he) {
+      _inherits(pe, _he);
 
-      function he() {
-        var _this13;
+      function pe() {
+        var _this11;
 
-        _classCallCheck(this, he);
+        _classCallCheck(this, pe);
 
-        _this13 = _possibleConstructorReturn(this, _getPrototypeOf(he).apply(this, arguments)), _this13.mood = "great";
-        return _this13;
+        _this11 = _possibleConstructorReturn(this, _getPrototypeOf(pe).apply(this, arguments)), _this11.mood = "great";
+        return _this11;
       }
 
-      _createClass(he, [{
+      _createClass(pe, [{
         key: "render",
         value: function render() {
-          return function (e) {
-            for (var _len = arguments.length, t = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-              t[_key - 1] = arguments[_key];
-            }
-
-            return new g(e, t, "html", E);
-          }(_templateObject(), this.mood);
+          return U(_templateObject(), this.mood);
         }
       }]);
 
-      return he;
-    }(le);
+      return pe;
+    }(he);
 
-    var de;
-    he.styles = function (e) {
+    var ue;
+    pe.styles = function (e) {
       for (var _len2 = arguments.length, t = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
         t[_key2 - 1] = arguments[_key2];
       }
 
       var s = t.reduce(function (t, s, n) {
         return t + function (e) {
-          if (e instanceof oe) return e.cssText;
+          if (e instanceof le) return e.cssText;
+          if ("number" == typeof e) return e;
           throw new Error("Value passed to 'css' function must be a 'css' function result: ".concat(e, ". Use 'unsafeCSS' to pass non-literal values, but\n            take care to ensure page security."));
         }(s) + e[n + 1];
       }, e[0]);
-      return new oe(s, re);
-    }(_templateObject2()), ce([function (e, t) {
-      return void 0 !== t ? ee(de, e, t) : Z(de, e);
-    }], he.prototype, "mood", void 0), he = ce([function (e) {
+      return new le(s, ae);
+    }(_templateObject2()), de([function (e, t) {
+      return void 0 !== t ? re(ue, e, t) : ie(ue, e);
+    }], pe.prototype, "mood", void 0), pe = de([function (e) {
       return function (t) {
         return "function" == typeof t ? function (e, t) {
           return window.customElements.define(e, t), t;
@@ -1751,6 +1775,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           };
         }(e, t);
       };
-    }("my-typed-lit-element")], he);
+    }("my-typed-lit-element")], pe);
+  },
+  54: function _(e, t, s) {
+    e.exports = s(101);
   }
 });
