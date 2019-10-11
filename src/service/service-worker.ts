@@ -17,7 +17,11 @@ async function cacheStaticAssets() {
 }
 
 self.addEventListener('install', async (event: any) => {
-    event.waitUntil(cacheStaticAssets());
+    try {
+        event.waitUntil(cacheStaticAssets());
+    } catch (e) {
+        console.error('Unable to cache the assets ', e);
+    }
 });
 
 self.addEventListener('fetch', async (event: any) => {
