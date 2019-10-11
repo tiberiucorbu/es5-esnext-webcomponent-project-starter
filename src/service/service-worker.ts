@@ -7,8 +7,8 @@ async function openCache() {
 
 async function cacheStaticAssets() {
     const cache = await openCache();
+    // TODO : create a separate repo that hosts the deployment, this service worker won't work on github pages
     return cache.addAll([
-        './',
         './dist/es-next/polyfills.js',
         './dist/es-next/bundle.js',
         './dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js'
