@@ -49,6 +49,5 @@ gulp.task('copy:babel-runtime', () =>
 );
 
 gulp.task('copy', gulp.parallel('copy:webcomponents', 'copy:babel-runtime'));
-
 gulp.task('clean', gulp.series('clean:esnext', 'clean:es5'));
 gulp.task('default', gulp.parallel('copy', gulp.series(['esnext', 'es5'])));

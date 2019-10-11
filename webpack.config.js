@@ -20,11 +20,13 @@ module.exports = {
     module: {
         rules: [{test: /\.tsx?$/, loader: 'ts-loader'}],
     },
-
     plugins: [
         new ForkTsCheckerWebpackPlugin()
     ],
     devServer: {
+        headers: {
+            'Service-Worker-Allowed': '/'
+        },
         port: 80
     }
 };

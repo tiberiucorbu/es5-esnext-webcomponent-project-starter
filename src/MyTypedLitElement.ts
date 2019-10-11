@@ -17,7 +17,9 @@ export class MyTypedLitElement extends LitElement {
     // Render element DOM by returning a `lit-html` template.
     render() {
         return html`
-            <div> List Element with a mood: <span>${this.mood}</span></div>`;
+            <div> This lit element has a mood:
+                <span>${this.mood}</span>
+             </div>`;
     }
 
 }

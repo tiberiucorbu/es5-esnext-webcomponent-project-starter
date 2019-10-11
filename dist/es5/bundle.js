@@ -11,7 +11,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n            <div> List Element with a mood: <span>", "</span></div>"]);
+  var data = _taggedTemplateLiteral(["\n            <div> This lit element has a mood:\n                <span>", "</span>\n             </div>"]);
 
   _templateObject = function _templateObject() {
     return data;

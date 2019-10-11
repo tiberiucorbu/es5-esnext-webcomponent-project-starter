@@ -57,7 +57,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   100: function _(e, t, n) {
     "use strict";
 
-    var r = "mysite-static-v1";
+    var r = "wcstatic-v1";
 
     function o() {
       return _o.apply(this, arguments);
@@ -66,23 +66,43 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     function _o() {
       _o = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee5() {
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      regeneratorRuntime.mark(function _callee4() {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context5.next = 2;
-                return caches.open(r);
+                _context4.next = 2;
+                return _asyncToGenerator(
+                /*#__PURE__*/
+                regeneratorRuntime.mark(function _callee3() {
+                  return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                    while (1) {
+                      switch (_context3.prev = _context3.next) {
+                        case 0:
+                          _context3.next = 2;
+                          return caches.open(r);
+
+                        case 2:
+                          return _context3.abrupt("return", _context3.sent);
+
+                        case 3:
+                        case "end":
+                          return _context3.stop();
+                      }
+                    }
+                  }, _callee3);
+                }))();
 
               case 2:
-                return _context5.abrupt("return", _context5.sent);
+                _context4.t0 = ["/", "/dist/es-next/polyfills.js", "/dist/es-next/bundle.js", "/dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"];
+                return _context4.abrupt("return", _context4.sent.addAll(_context4.t0));
 
-              case 3:
+              case 4:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5);
+        }, _callee4);
       }));
       return _o.apply(this, arguments);
     }
@@ -92,32 +112,37 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     function () {
       var _ref = _asyncToGenerator(
       /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(e) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.waitUntil(o());
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }()), self.addEventListener("fetch",
+    /*#__PURE__*/
+    function () {
+      var _ref2 = _asyncToGenerator(
+      /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(e) {
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                e.waitUntil(_asyncToGenerator(
-                /*#__PURE__*/
-                regeneratorRuntime.mark(function _callee() {
-                  return regeneratorRuntime.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          _context.next = 2;
-                          return o();
-
-                        case 2:
-                          _context.t0 = ["/", "/dist/es-next/polyfills.js", "/dist/es-next/bundle.js", "/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"];
-                          return _context.abrupt("return", _context.sent.addAll(_context.t0));
-
-                        case 4:
-                        case "end":
-                          return _context.stop();
-                      }
-                    }
-                  }, _callee);
-                }))());
+                e.respondWith(caches.match(e.request).then(function (t) {
+                  return t ? (console.log("reply with cache for ".concat(e.request.url)), t) : (console.log("no cache for ".concat(e.request.url, ", fetching it from the server")), fetch(e.request));
+                }));
 
               case 1:
               case "end":
@@ -127,57 +152,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }, _callee2);
       }));
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }()), self.addEventListener("fetch",
-    /*#__PURE__*/
-    function () {
-      var _ref3 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(e) {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                console.log("The service worker is serving the asset."), e.respondWith(function () {
-                  var _ref4 = _asyncToGenerator(
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee3(e) {
-                    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                      while (1) {
-                        switch (_context3.prev = _context3.next) {
-                          case 0:
-                            _context3.next = 2;
-                            return o();
-
-                          case 2:
-                            _context3.t0 = e;
-                            return _context3.abrupt("return", _context3.sent.match(_context3.t0));
-
-                          case 4:
-                          case "end":
-                            return _context3.stop();
-                        }
-                      }
-                    }, _callee3);
-                  }));
-
-                  return function (_x3) {
-                    return _ref4.apply(this, arguments);
-                  };
-                }()(e.request));
-
-              case 1:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
       return function (_x2) {
-        return _ref3.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }());
   },
