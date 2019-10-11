@@ -94,7 +94,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                 }))();
 
               case 2:
-                _context4.t0 = ["/", "/dist/es-next/polyfills.js", "/dist/es-next/bundle.js", "/dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"];
+                _context4.t0 = ["./", "./dist/es-next/polyfills.js", "./dist/es-next/bundle.js", "./dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"];
                 return _context4.abrupt("return", _context4.sent.addAll(_context4.t0));
 
               case 4:
