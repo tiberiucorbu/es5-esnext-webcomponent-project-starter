@@ -16,8 +16,8 @@
 
     <link rel="manifest" href="/manifest.json">
     <title>Web Component Demo</title>
-    <script src="./dist/es-next/polyfills.js"></script>
-    <script src="./dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../dist/es-next/polyfills.js"></script>
+    <script src="../dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <style>
         body, html {
             width: 100%;
@@ -52,20 +52,20 @@
     }
 
     if (isIE) {
-        const es5AddapterScript = '/dist/modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
-        const polyfillScript = '/dist/modules/@babel/polyfill/dist/polyfill.js';
+        const es5AddapterScript = './dist/modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
+        const polyfillScript = './dist/modules/@babel/polyfill./dist/polyfill.js';
         loadScript(polyfillScript);
         loadScript(es5AddapterScript);
     }
 
     if (isIE) {
-        loadScriptAsync('/dist/es5/bundle.js');
+        loadScriptAsync('./dist/es5/bundle.js');
     } else {
-        loadScriptAsync('/dist/es-next/bundle.js');
+        loadScriptAsync('./dist/es-next/bundle.js');
     }
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/dist/es-next/service-worker.js', {scope: '/'}).then(function (registration) {
+            navigator.serviceWorker.register('./dist/es-next/service-worker.js', {scope: '/'}).then(function (registration) {
                 // Registration was successful
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             }, function (err) {
