@@ -8,10 +8,10 @@ async function openCache() {
 async function cacheStaticAssets() {
     const cache = await openCache();
     return cache.addAll([
-        '/',
-        '/dist/es-next/polyfills.js',
-        '/dist/es-next/bundle.js',
-        '/dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js'
+        './',
+        './dist/es-next/polyfills.js',
+        './dist/es-next/bundle.js',
+        './dist/modules/@webcomponents/webcomponentsjs/webcomponents-loader.js'
         // etc
     ]);
 }
