@@ -4,12 +4,13 @@ module.exports = {
     entry: {
         'bundle': [path.resolve(__dirname, 'src/index.ts')],
         'polyfills': [path.resolve(__dirname, 'src/polyfills.ts')],
-        'service-worker': [path.resolve(__dirname, 'src/service/service-worker.ts')]
+        'service-worker': [path.resolve(__dirname, 'src/service/service-worker.ts')],
+        'loader': [path.resolve(__dirname, 'src/loader.ts')]
     },
     context: __dirname,
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist/es-next'),
+        path: path.resolve(__dirname, 'dist'),
     },
     devtool: "source-map",
     mode: "production",
