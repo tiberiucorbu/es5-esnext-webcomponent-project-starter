@@ -16,16 +16,14 @@ function loadScriptAsync(scriptUrl: string): HTMLScriptElement {
 }
 
 function isES5() {
-    "use strict";
-    if (typeof Symbol == "undefined") return true;
     try {
-        Function("()=>{}"); return false;
-    } catch (e) { return true; }
-    return false;
+        return typeof Symbol == "undefined" || Function("return ()=>true");
+    } catch (e) { return false; }
 }
 
 if (isES5()) {
-    loadScript('./dist/custom-elements-es5-adapter.js');    
+    loadScript('./dist/custom-elements-es5-adapter.js');  // 
+    loadScript('./dist/polyfill.js');
     loadScriptAsync('./dist/es5-bundle.js');
 } else {
     loadScriptAsync('./dist/es-next-bundle.js');

@@ -1,2 +1,0 @@
-import "./MyCustom";
-import "./MyTypedLitElement";
