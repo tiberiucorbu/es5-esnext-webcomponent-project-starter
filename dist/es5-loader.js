@@ -67,7 +67,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return t.setAttribute("src", e), t.setAttribute("async", "async"), document.head.appendChild(t), t;
   }
 
-  !function () {
+  window.WebComponents = {
+    root: "./dist"
+  }, !function () {
     try {
       return "undefined" == typeof Symbol || Function("return ()=>true");
     } catch (e) {
@@ -124,10 +126,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       e && (n.push(e), t && c());
     }, window.WebComponents._batchCustomElements = i;
     var u = "webcomponents-loader.js",
-        l = [];
-    (!("attachShadow" in Element.prototype && "getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && l.push("sd"), window.customElements && !window.customElements.forcePolyfill || l.push("ce");
+        s = [];
+    (!("attachShadow" in Element.prototype && "getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && s.push("sd"), window.customElements && !window.customElements.forcePolyfill || s.push("ce");
 
-    var s = function () {
+    var l = function () {
       var e = document.createElement("template");
       if (!("content" in e)) return !0;
       if (!(e.content.cloneNode() instanceof DocumentFragment)) return !0;
@@ -137,9 +139,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return 0 === n.content.childNodes.length || 0 === n.content.firstChild.content.childNodes.length;
     }();
 
-    if (window.Promise && Array.from && window.URL && window.Symbol && !s || (l = ["sd-ce-pf"]), l.length) {
+    if (window.Promise && Array.from && window.URL && window.Symbol && !l || (s = ["sd-ce-pf"]), s.length) {
       var a,
-          m = "bundles/webcomponents-" + l.join("-") + ".js";
+          m = "bundles/webcomponents-" + s.join("-") + ".js";
       if (window.WebComponents.root) a = window.WebComponents.root + m;else {
         var p = document.querySelector('script[src*="' + u + '"]');
         a = p.src.replace(u, m);

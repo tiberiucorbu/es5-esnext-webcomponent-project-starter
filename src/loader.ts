@@ -1,3 +1,5 @@
+// @ts-ignore
+window.WebComponents = {root: './dist'};
 import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
 
 function loadScript(scriptUrl: string): HTMLScriptElement {
@@ -22,7 +24,7 @@ function isES5() {
 }
 
 if (isES5()) {
-    loadScript('./dist/custom-elements-es5-adapter.js');  // 
+    loadScript('./dist/custom-elements-es5-adapter.js');  //
     loadScript('./dist/polyfill.js');
     loadScriptAsync('./dist/es5-bundle.js');
 } else {
