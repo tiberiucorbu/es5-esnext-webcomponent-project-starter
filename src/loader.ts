@@ -3,7 +3,12 @@ import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
 function loadScript(scriptUrl: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('src', scriptUrl);
-    document.head.appendChild(script);
+
+    if (document.readyState === 'loading') {
+        document.write(script.outerHTML);
+    } else {
+        document.head.appendChild(script);
+    }
     return script;
 }
 
@@ -11,7 +16,11 @@ function loadScriptAsync(scriptUrl: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('src', scriptUrl);
     script.setAttribute('async', "async");
-    document.head.appendChild(script);
+    if (document.readyState === 'loading') {
+        document.write(script.outerHTML);
+    } else {
+        document.head.appendChild(script);
+    }
     return script;
 }
 
