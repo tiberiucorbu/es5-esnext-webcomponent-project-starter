@@ -64,9 +64,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return t.setAttribute("src", e), t.setAttribute("async", "async"), "loading" === document.readyState ? document.write(t.outerHTML) : document.head.appendChild(t), t;
   }
 
-  window.WebComponents = window.WebComponents || {}, window.WebComponents.root = window.WebComponents.root || "./dist/", window, n(3), !function () {
+  window.WebComponents = window.WebComponents || {}, window.WebComponents.root = window.WebComponents.root || "./dist/", n(3), "undefined" == typeof Symbol && function () {
     try {
-      return "undefined" == typeof Symbol || Function("return ()=>true");
+      return Function("return ()=>true"), !0;
     } catch (e) {
       return !1;
     }

@@ -2,9 +2,6 @@
 window.WebComponents = window.WebComponents || {};
 // @ts-ignore
 window.WebComponents.root = window.WebComponents.root || './dist/';// <- don't forget the trailing slash
-if (!('Promise' in window)){
-
-}
 require('@webcomponents/webcomponentsjs/webcomponents-loader.js');
 
 function loadScript(scriptUrl: string): HTMLScriptElement {
@@ -31,12 +28,21 @@ function loadScriptAsync(scriptUrl: string): HTMLScriptElement {
     return script;
 }
 
-function isES5() {
+function supportsSymbol() {
+    return typeof Symbol === 'undefined'
+}
+
+function supportsLambda() {
     try {
-        return typeof Symbol == "undefined" || Function("return ()=>true");
+        Function("return ()=>true");
+        return true;
     } catch (e) {
         return false;
     }
+}
+
+function isES5() {
+    return !(supportsSymbol() && supportsLambda());
 }
 
 if (isES5()) {
