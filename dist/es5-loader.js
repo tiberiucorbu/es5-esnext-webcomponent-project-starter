@@ -54,30 +54,23 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 }, function (e, t, n) {
   "use strict";
 
-  n.r(t);
-  n(3);
-
   function o(e) {
     var t = document.createElement("script");
-    return t.setAttribute("src", e), "loading" === document.readyState ? (document.write(t.outerHTML), document.addEventListener("DOMContentLoaded", r)) : document.head.appendChild(t), t;
+    return t.setAttribute("src", e), "loading" === document.readyState ? document.write(t.outerHTML) : document.head.appendChild(t), t;
   }
 
   function r(e) {
-    console.log(e);
-  }
-
-  function d(e) {
     var t = document.createElement("script");
-    return t.setAttribute("src", e), t.setAttribute("async", "async"), "loading" === document.readyState ? (document.write(t.outerHTML), document.addEventListener("DOMContentLoaded", r)) : document.head.appendChild(t), t;
+    return t.setAttribute("src", e), t.setAttribute("async", "async"), "loading" === document.readyState ? document.write(t.outerHTML) : document.head.appendChild(t), t;
   }
 
-  !function () {
+  window.WebComponents = window.WebComponents || {}, window.WebComponents.root = window.WebComponents.root || "./dist/", window, n(3), !function () {
     try {
       return "undefined" == typeof Symbol || Function("return ()=>true");
     } catch (e) {
       return !1;
     }
-  }() ? d("./dist/es-next-bundle.js") : (o("./dist/custom-elements-es5-adapter.js"), o("./dist/polyfill.js"), d("./dist/es5-bundle.js"));
+  }() ? r("./dist/es-next-bundle.js") : (o("./dist/custom-elements-es5-adapter.js"), o("./dist/polyfill.js"), r("./dist/es5-bundle.js"));
 }, function (e, t) {
   /**
    * @license
@@ -128,10 +121,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       e && (n.push(e), t && c());
     }, window.WebComponents._batchCustomElements = d;
     var u = "webcomponents-loader.js",
-        a = [];
-    (!("attachShadow" in Element.prototype && "getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && a.push("sd"), window.customElements && !window.customElements.forcePolyfill || a.push("ce");
+        s = [];
+    (!("attachShadow" in Element.prototype && "getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && s.push("sd"), window.customElements && !window.customElements.forcePolyfill || s.push("ce");
 
-    var l = function () {
+    var a = function () {
       var e = document.createElement("template");
       if (!("content" in e)) return !0;
       if (!(e.content.cloneNode() instanceof DocumentFragment)) return !0;
@@ -141,19 +134,19 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return 0 === n.content.childNodes.length || 0 === n.content.firstChild.content.childNodes.length;
     }();
 
-    if (window.Promise && Array.from && window.URL && window.Symbol && !l || (a = ["sd-ce-pf"]), a.length) {
-      var s,
-          m = "bundles/webcomponents-" + a.join("-") + ".js";
-      if (window.WebComponents.root) s = window.WebComponents.root + m;else {
+    if (window.Promise && Array.from && window.URL && window.Symbol && !a || (s = ["sd-ce-pf"]), s.length) {
+      var l,
+          m = "bundles/webcomponents-" + s.join("-") + ".js";
+      if (window.WebComponents.root) l = window.WebComponents.root + m;else {
         var p = document.querySelector('script[src*="' + u + '"]');
-        s = p.src.replace(u, m);
+        l = p.src.replace(u, m);
       }
-      var f = document.createElement("script");
-      f.src = s, "loading" === document.readyState ? (f.setAttribute("onload", "window.WebComponents._batchCustomElements()"), document.write(f.outerHTML), document.addEventListener("DOMContentLoaded", i)) : (f.addEventListener("load", function () {
+      var w = document.createElement("script");
+      w.src = l, "loading" === document.readyState ? (w.setAttribute("onload", "window.WebComponents._batchCustomElements()"), document.write(w.outerHTML), document.addEventListener("DOMContentLoaded", i)) : (w.addEventListener("load", function () {
         d(), i();
-      }), f.addEventListener("error", function () {
-        throw new Error("Could not load polyfill bundle" + s);
-      }), document.head.appendChild(f));
+      }), w.addEventListener("error", function () {
+        throw new Error("Could not load polyfill bundle" + l);
+      }), document.head.appendChild(w));
     } else "complete" === document.readyState ? (t = !0, r()) : (window.addEventListener("load", i), window.addEventListener("DOMContentLoaded", function () {
       window.removeEventListener("load", i), i();
     }));
