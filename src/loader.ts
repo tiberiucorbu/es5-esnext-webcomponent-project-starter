@@ -29,7 +29,7 @@ function loadScriptAsync(scriptUrl: string): HTMLScriptElement {
 }
 
 function supportsSymbol() {
-    return typeof Symbol === 'undefined'
+    return typeof Symbol === 'function'
 }
 
 function supportsLambda() {
