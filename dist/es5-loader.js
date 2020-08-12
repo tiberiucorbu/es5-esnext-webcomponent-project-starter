@@ -1,6 +1,6 @@
 "use strict";
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 !function (e) {
   var t = {};
@@ -122,7 +122,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }, window.WebComponents._batchCustomElements = d;
     var u = "webcomponents-loader.js",
         s = [];
-    (!("attachShadow" in Element.prototype && "getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && s.push("sd"), window.customElements && !window.customElements.forcePolyfill || s.push("ce");
+    (!("attachShadow" in Element.prototype) || !("getRootNode" in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) && s.push("sd"), window.customElements && !window.customElements.forcePolyfill || s.push("ce");
 
     var a = function () {
       var e = document.createElement("template");
