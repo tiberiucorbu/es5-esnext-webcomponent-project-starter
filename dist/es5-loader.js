@@ -103,7 +103,7 @@
       }
     }() ? e("./dist/es-next-bundle.js") : (function (e) {
       var t = document.createElement("script");
-      t.setAttribute("src", "./dist/polyfill.js"), "loading" === document.readyState ? document.write(t.outerHTML) : document.head.appendChild(t);
+      t.setAttribute("src", "./dist/es5-polyfill.js"), "loading" === document.readyState ? document.write(t.outerHTML) : document.head.appendChild(t);
     }(), e("./dist/es5-bundle.js"));
   })();
 })();

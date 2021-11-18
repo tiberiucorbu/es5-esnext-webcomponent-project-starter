@@ -46,7 +46,7 @@ function isES5() {
 }
 
 if (isES5()) {
-    loadScript('./dist/polyfill.js');
+    loadScript('./dist/es5-polyfill.js');
     loadScriptAsync('./dist/es5-bundle.js');
 } else {
     loadScriptAsync('./dist/es-next-bundle.js');
