@@ -1,9 +1,3 @@
-// @ts-ignore
-window.WebComponents = window.WebComponents || {};
-// @ts-ignore
-window.WebComponents.root = window.WebComponents.root || './dist/';// <- don't forget the trailing slash
-require('@webcomponents/webcomponentsjs/webcomponents-loader.js');
-
 function loadScript(scriptUrl: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('src', scriptUrl);
