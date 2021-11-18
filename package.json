@@ -11,7 +11,7 @@
     "build:jses5": "npx gulp es5",
     "clean": "npx gulp clean",
     "build": "npx gulp",
-    "start": "webpack-dev-server --mode=development"
+    "start": "webpack serve --mode=development"
   },
   "author": {
     "name": "Tiberiu  Corbu",

@@ -23,9 +23,12 @@ module.exports = {
         new ForkTsCheckerWebpackPlugin()
     ],
     devServer: {
+	static: {
+	   directory: path.join(__dirname, ''),
+	},
         headers: {
             'Service-Worker-Allowed': '/'
         },
-        port: 80
+        port: 4200
     }
 };
