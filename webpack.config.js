@@ -4,7 +4,7 @@ module.exports = {
     entry: {
         'bundle': [path.resolve(__dirname, 'src/index.ts')],
         'loader': [path.resolve(__dirname, 'src/loader.ts')],
-        'polyfills' : [path.resolve(__dirname, 'src/polyfills.ts')]
+        'polyfill' : [path.resolve(__dirname, 'src/polyfills.ts')]
     },
     context: __dirname,
     output: {
