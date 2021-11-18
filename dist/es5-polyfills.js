@@ -8824,6 +8824,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   }, function () {
     "use strict";
 
-    e(628), e(8594), e(5666);
+    e(8594), e(5666), e(628), console.log("import core-js"), console.log("import regenerator runtime"), console.log("import ce es5 adapter");
   }();
 })();
