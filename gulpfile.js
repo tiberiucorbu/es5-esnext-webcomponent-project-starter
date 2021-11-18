@@ -49,12 +49,7 @@ gulp.task('copy:webcomponents', () =>
     ]).pipe(gulp.dest('dist/'))
 );
 
-gulp.task('copy:babel-runtime', () =>
-    gulp.src([
-        './node_modules/@babel/polyfill/dist/polyfill.js',
-    ]).pipe(gulp.dest('dist'))
-);
 
-gulp.task('copy', gulp.parallel('copy:webcomponents', 'copy:babel-runtime'));
+gulp.task('copy', gulp.parallel('copy:webcomponents'));
 gulp.task('clean', gulp.series('clean:esnext', 'clean:es5'));
 gulp.task('default', gulp.parallel('copy', gulp.series(['esnext', 'es5'])));

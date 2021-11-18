@@ -1,4 +1,10 @@
 {
+  "_args": [
+    [
+      "@webcomponents/webcomponentsjs@2.4.4",
+      "/home/tiber/work/es5-esnext-webcomponent-project-starter"
+    ]
+  ],
   "_from": "@webcomponents/webcomponentsjs@2.4.4",
   "_id": "@webcomponents/webcomponentsjs@2.4.4",
   "_inBundle": false,
@@ -20,8 +26,7 @@
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/@webcomponents/webcomponentsjs/-/webcomponentsjs-2.4.4.tgz",
-  "_shasum": "14b7e78da47f8f0071ff96c35335b871534179bc",
-  "_spec": "@webcomponents/webcomponentsjs@2.4.4",
+  "_spec": "2.4.4",
   "_where": "/home/tiber/work/es5-esnext-webcomponent-project-starter",
   "author": {
     "name": "The Polymer Project Authors",
@@ -30,8 +35,6 @@
   "bugs": {
     "url": "https://github.com/webcomponents/polyfills/issues?q=is%3Aissue+is%3Aopen+label%3A\"Package%3A+webcomponentsjs\""
   },
-  "bundleDependencies": false,
-  "deprecated": false,
   "description": "Web Components Polyfills",
   "devDependencies": {
     "@webcomponents/custom-elements": "^1.4.2",
